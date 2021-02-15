@@ -1,5 +1,6 @@
 ﻿using EventAuth.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 
 namespace EventAuth.Controllers
@@ -8,10 +9,12 @@ namespace EventAuth.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly ILogger<AuthController> _logger;
         private readonly IAuthRepository _userRepo;
 
-        public AuthController(IAuthRepository userRepository)
+        public AuthController(ILogger<AuthController> logger, IAuthRepository userRepository)
         {
+            _logger = logger;
             _userRepo = userRepository;
         }
 
@@ -20,6 +23,7 @@ namespace EventAuth.Controllers
         {
             try
             {
+                _logger.LogError("email:{email}, Password: {password}",email,password);
                 _userRepo.Login(email, password);
             }
             catch (System.Exception)
