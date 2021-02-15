@@ -1,6 +1,7 @@
 ﻿using EventAuth.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace EventAuth.Controllers
@@ -23,11 +24,11 @@ namespace EventAuth.Controllers
         {
             try
             {
-                _logger.LogError("email:{email}, Password: {password}",email,password);
                 _userRepo.Login(email, password);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
+                _logger.LogInformation("Exception: {ExceptionMessage}", ex.Message);
                 return Unauthorized();
             }
             return Ok();

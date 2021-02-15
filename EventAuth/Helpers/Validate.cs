@@ -1,4 +1,6 @@
 ﻿using EventAuth.Exceptions;
+using System.ComponentModel.DataAnnotations;
+//using System.ComponentModel.DataAnnotations;
 
 namespace EventAuth.Helpers
 {
@@ -12,7 +14,12 @@ namespace EventAuth.Helpers
 
             if(Email.Length < minLength)
             {
-                throw new ValidationException("Email is to short");
+                throw new ValidationEx("Email is to short");
+            }
+
+            if (!new EmailAddressAttribute().IsValid(Email))
+            {
+                throw new ValidationEx("Email not valid");
             }
 
         }
@@ -20,10 +27,9 @@ namespace EventAuth.Helpers
 
         public static void ValidatePassword(string Password)
         {
-
             if (Password.Length < minLength)
             {
-                throw new ValidationException("Password is to short");
+                throw new ValidationEx("Password is to short");
             }
 
         }
