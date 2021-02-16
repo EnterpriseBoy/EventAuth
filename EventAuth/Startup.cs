@@ -27,6 +27,9 @@ namespace EventAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Hashing Options
+            services.Configure<HashingOptions>(_config.GetSection("HashingOptions"));
+
             //Context Pool checks if there is an instance available
             services.AddDbContextPool<EventAuthContext>(options => options.UseSqlServer(_config.GetConnectionString("AuthDBConnection")));
 

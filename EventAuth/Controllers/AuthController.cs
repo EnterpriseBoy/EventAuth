@@ -24,14 +24,13 @@ namespace EventAuth.Controllers
         {
             try
             {
-                _userRepo.Login(email, password);
+                return Ok(_userRepo.Login(email, password));
             }
             catch (Exception ex)
             {
                 _logger.LogInformation("Exception: {ExceptionMessage}", ex.Message);
                 return Unauthorized();
             }
-            return Ok();
         }
 
     }

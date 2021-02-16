@@ -9,7 +9,7 @@ namespace EventAuth.Helpers
         private const  int minLength = 8;
 
         
-        public static void ValidateEmail(string Email)
+        public static void ValidateLogin(string Email,string Password)
         {
 
             if(Email.Length < minLength)
@@ -22,11 +22,6 @@ namespace EventAuth.Helpers
                 throw new ValidationEx("Email not valid");
             }
 
-        }
-
-
-        public static void ValidatePassword(string Password)
-        {
             if (Password.Length < minLength)
             {
                 throw new ValidationEx("Password is to short");

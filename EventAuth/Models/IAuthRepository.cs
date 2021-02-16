@@ -2,7 +2,7 @@
 {
     public interface IAuthRepository
     {
-        void Login(string Email, string Password);
+        string Login(string Email, string Password);
         string Register(string Email, string Password);
         User ConfirmEmail(string Email, string Password);
         string Delete(string Email, string Password);

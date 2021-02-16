@@ -1,5 +1,6 @@
 ﻿using EventAuth.Context;
 using EventAuth.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -24,12 +25,27 @@ namespace EventAuth.Models
             throw new System.NotImplementedException();
         }
 
-        public void Login(string Email, string Password)
+        public string Login(string Email, string Password)
         {
-            Validate.ValidateEmail(Email);
-            Validate.ValidatePassword(Password);
+            Validate.ValidateLogin(Email,Password);
+
             
-            var user = _eventContext.Users.First(x => x.Email == Email);
+            var user = _eventContext.Users.FirstOrDefault(x => x.Email == Email);
+
+            if(user== null)
+            {
+                return "Login Failed";
+            }
+            //var hasher = new PasswordHasher();
+
+            var passwordHash = Hasher.Hash(Password);
+
+            if(Hasher.Verify(passwordHash,user.Password))
+            {
+                return JsonConvert.SerializeObject(user);
+            }
+
+            return "Login Failed";
         }
 
         public string Register(string Email, string Password)
