@@ -15,9 +15,22 @@ namespace EventAuth.Models
         {
             _eventContext = context;
         }
-        public User ConfirmEmail(string Email, string Password)
+        public string ConfirmAccount(Guid accountId)
         {
-            throw new System.NotImplementedException();
+            var user = _eventContext.Users.FirstOrDefault(x => x.Id == accountId);
+
+            if (user == null)
+            {
+                return "Conformation Failed";
+            }
+
+            user.Confirmed = true;
+
+            _eventContext.Users.Update(user);
+
+            _eventContext.SaveChanges();
+
+            return "Account Confirmed";
         }
 
         public string Delete(string Email, string Password)
@@ -29,7 +42,6 @@ namespace EventAuth.Models
         {
             Validate.ValidateLogin(Email,Password);
 
-            
             var user = _eventContext.Users.FirstOrDefault(x => x.Email == Email);
 
             if(user== null)

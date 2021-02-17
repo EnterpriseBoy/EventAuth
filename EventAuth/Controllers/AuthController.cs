@@ -19,7 +19,8 @@ namespace EventAuth.Controllers
             _userRepo = userRepository;
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Route("Login")]
         public ActionResult Login(string email,string password)
         {
             try
@@ -34,7 +35,8 @@ namespace EventAuth.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(string email, string password)
+        [Route("Register")]
+        public ActionResult Register(string email,  string password)
         {
             try
             {
@@ -44,6 +46,21 @@ namespace EventAuth.Controllers
             {
                 _logger.LogInformation("Exception: {ExceptionMessage}", ex.Message);
                 return Unauthorized();
+            }
+        }
+
+        [HttpPost]
+        [Route("Confirm")]
+        public ActionResult Confirm(Guid accountId)
+        {
+            try
+            {
+                return Ok(_userRepo.ConfirmAccount(accountId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Exception: {ExceptionMessage}", ex.Message);
+                return Unauthorized("Message: Account not confirmed");
             }
         }
 
