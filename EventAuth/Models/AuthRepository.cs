@@ -50,7 +50,24 @@ namespace EventAuth.Models
 
         public string Register(string Email, string Password)
         {
-            throw new System.NotImplementedException();
+            Validate.ValidateLogin(Email, Password);
+
+            if (_eventContext.Users.FirstOrDefault(x => x.Email == Email) != null)
+                return "Registration Failed";
+
+            var user = new User()
+            {
+                Password = Hasher.Hash(Password),
+                Email = Email,
+                RegistrationDate = DateTime.Now,
+                Confirmed= false
+            };
+
+            _eventContext.Users.Add(user);
+
+            _eventContext.SaveChanges();
+
+            return "User Saved";
         }
 
         public string ResendEmail(string Email, string Password)

@@ -19,12 +19,26 @@ namespace EventAuth.Controllers
             _userRepo = userRepository;
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Login(string email,string password)
         {
             try
             {
                 return Ok(_userRepo.Login(email, password));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Exception: {ExceptionMessage}", ex.Message);
+                return Unauthorized();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Register(string email, string password)
+        {
+            try
+            {
+                return Ok(_userRepo.Register(email, password));
             }
             catch (Exception ex)
             {

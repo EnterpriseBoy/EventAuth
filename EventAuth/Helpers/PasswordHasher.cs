@@ -9,10 +9,10 @@ namespace EventAuth.Helpers
         {
             using (var md5 = new MD5CryptoServiceProvider())
             {
-                var b = System.Text.Encoding.UTF8.GetBytes(password);
-                b = md5.ComputeHash(b);
+                var ba = System.Text.Encoding.UTF8.GetBytes(password);
+                var hashBa = md5.ComputeHash(ba);
                 var sb = new System.Text.StringBuilder();
-                foreach(var x in b)
+                foreach(var x in hashBa)
                 {
                     sb.Append(x.ToString("x2"));
                 }

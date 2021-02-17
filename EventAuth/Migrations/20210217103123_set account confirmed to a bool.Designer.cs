@@ -4,14 +4,16 @@ using EventAuth.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventAuth.Migrations
 {
     [DbContext(typeof(EventAuthContext))]
-    partial class EventAuthContextModelSnapshot : ModelSnapshot
+    [Migration("20210217103123_set account confirmed to a bool")]
+    partial class setaccountconfirmedtoabool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
