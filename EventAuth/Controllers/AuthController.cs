@@ -49,7 +49,7 @@ namespace EventAuth.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("Confirm")]
         public ActionResult Confirm(Guid accountId)
         {
